@@ -1,3 +1,5 @@
+package kittenstext 
+
 import Genders._
 import RussianLanguageModel._
 import NounCases._

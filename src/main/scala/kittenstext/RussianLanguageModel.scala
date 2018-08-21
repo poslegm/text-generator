@@ -1,3 +1,5 @@
+package kittenstext
+
 import NounCases._
 import Genders._
 

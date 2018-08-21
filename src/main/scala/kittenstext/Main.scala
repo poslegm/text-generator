@@ -1,20 +1,17 @@
-import RussianLanguageModel._
+package kittenstext
+
 import Genders._
+import RussianLanguageModel._
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 object Main {
-	val Rand = new Random()
-
 	def main(args: Array[String]) {
 		// начальное число животных в комнате от 2 до 4
-		val startAnimalsCount = Rand.nextInt(2) + 2
+		val startAnimalsCount = Random.nextInt(2) + 2
 		val animals = ArrayBuffer.fill(startAnimalsCount)(generateRandomAnimal())
-		print(
-			"В комнате находятся: " + animals
-					.map((a: Animal) => a.fullDescription).mkString(", ") + ". "
-		)
+		print(s"В комнате находятся: ${animals.map(_.fullDescription).mkString(", ")}. ")
 
 		// добавляется ещё одно животное
 		animals += generateRandomAnimal()
@@ -23,7 +20,7 @@ object Main {
 		// две пары случайных животных в случайном порядке
 		// играют и царапаются друг с другом
 		val pair = getDifferentAnimals(animals)
-		if (Rand.nextBoolean()) {
+		if (Random.nextBoolean()) {
 			print(pair._1 playWith pair._2)
 			print(pair._1 attack pair._2)
 		} else {
@@ -32,15 +29,16 @@ object Main {
 		}
 
 		// удаление животного из комнаты
-		val deathNumber = Rand.nextInt(animals.length)
+		val deathNumber = Random.nextInt(animals.length)
 		println(animals.remove(deathNumber).removeFromScene())
 	}
 
 	def generateRandomAnimal(): Animal = {
-		val kind = NounRoots(Rand.nextInt(NounRoots.length))
+		val kind = NounRoots(Random.nextInt(NounRoots.length))
 		new Animal(
-			kind, ColorRoots(Rand.nextInt(ColorRoots.length)),
-			SizeRoots(Rand.nextInt(SizeRoots.length)),
+			kind, 
+      ColorRoots(Random.nextInt(ColorRoots.length)),
+			SizeRoots(Random.nextInt(SizeRoots.length)),
 			if (kind == "котён") Masculine else Feminine
 		)
 	}
@@ -54,5 +52,5 @@ object Main {
 		a -> b
 	}
 
-	def randomElem(list: ArrayBuffer[Animal]) = list(Rand.nextInt(list.length))
+	def randomElem(list: ArrayBuffer[Animal]) = list(Random.nextInt(list.length))
 }
